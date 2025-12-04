@@ -1,0 +1,10 @@
+services:
+  db:
+    container_name: ScreenSound-DB-Blazor
+    hostname: ScreenSound-DB-Blazor
+    image: mcr.microsoft.com/mssql/server
+    ports:
+      - "1433:1433"
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=[Senha123]
