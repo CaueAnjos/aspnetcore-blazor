@@ -16,6 +16,8 @@
           dotnet-sdk
           dotnet-ef
           csharpier
+          podman
+          podman-compose
         ];
       };
     });
