@@ -1,13 +1,15 @@
-﻿using Microsoft.EntityFrameworkCore;
-using ScreenSound.Modelos;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using ScreenSound.Modelos;
 
 namespace ScreenSound.Banco;
-public class DAL<T> where T : class
+
+public class DAL<T>
+    where T : class
 {
     private readonly ScreenSoundContext context;
 
@@ -18,15 +20,12 @@ public class DAL<T> where T : class
 
     public IEnumerable<T> Listar()
     {
-        return context.Set<T>()
-            .ToList();
+        return context.Set<T>().ToList();
     }
 
     public IEnumerable<T> Listar(string propertyPath)
     {
-        return context.Set<T>()
-            .Include(propertyPath)
-            .ToList();
+        return context.Set<T>().Include(propertyPath).ToList();
     }
 
     public void Adicionar(T objeto)
@@ -34,11 +33,13 @@ public class DAL<T> where T : class
         context.Set<T>().Add(objeto);
         context.SaveChanges();
     }
+
     public void Atualizar(T objeto)
     {
         context.Set<T>().Update(objeto);
         context.SaveChanges();
     }
+
     public void Deletar(T objeto)
     {
         context.Set<T>().Remove(objeto);

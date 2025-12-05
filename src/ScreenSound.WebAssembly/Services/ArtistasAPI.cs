@@ -1,6 +1,6 @@
-﻿using ScreenSound.Shared.Modelos.Requests;
+﻿using System.Net.Http.Json;
+using ScreenSound.Shared.Modelos.Requests;
 using ScreenSound.Shared.Modelos.Response;
-using System.Net.Http.Json;
 
 namespace ScreenSound.WebAssembly.Services
 {

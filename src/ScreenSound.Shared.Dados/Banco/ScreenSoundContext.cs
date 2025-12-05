@@ -1,26 +1,26 @@
-﻿using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore;
-using ScreenSound.Modelos;
-using ScreenSound.Shared.Modelos.Modelos;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
+using ScreenSound.Modelos;
+using ScreenSound.Shared.Modelos.Modelos;
 
 namespace ScreenSound.Banco;
-public class ScreenSoundContext: DbContext
+
+public class ScreenSoundContext : DbContext
 {
     public DbSet<Artista> Artistas { get; set; }
     public DbSet<Musica> Musicas { get; set; }
     public DbSet<Genero> Generos { get; set; }
 
-    private string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=ScreenSoundV0;Integrated Security=True;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
+    private string connectionString =
+        "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=ScreenSoundV0;Integrated Security=True;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
 
-    public ScreenSoundContext(DbContextOptions options) : base(options)
-    {
-
-    }
+    public ScreenSoundContext(DbContextOptions options)
+        : base(options) { }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -28,22 +28,21 @@ public class ScreenSoundContext: DbContext
         {
             return;
         }
-        optionsBuilder
-            .UseSqlServer(connectionString)
-            .UseLazyLoadingProxies();
+        optionsBuilder.UseSqlServer(connectionString).UseLazyLoadingProxies();
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Musica>()
+        modelBuilder
+            .Entity<Musica>()
             .HasOne(m => m.Artista)
             .WithMany(a => a.Musicas)
             .HasForeignKey(m => m.ArtistaId);
 
-        modelBuilder.Entity<Musica>()
+        modelBuilder
+            .Entity<Musica>()
             .HasOne(m => m.Genero)
             .WithMany(a => a.Musicas)
             .HasForeignKey(m => m.GeneroId);
     }
-
 }

@@ -1,6 +1,7 @@
 ﻿using ScreenSound.Modelos;
 
 namespace ScreenSound.Shared.Modelos.Modelos;
+
 public class Genero
 {
     public int Id { get; set; }
@@ -13,5 +14,4 @@ public class Genero
     {
         return $"Nome: {Nome} - Descrição: {Descricao}";
     }
-
 }

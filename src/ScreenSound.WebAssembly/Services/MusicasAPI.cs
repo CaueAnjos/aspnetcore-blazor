@@ -1,5 +1,5 @@
-﻿using ScreenSound.Shared.Modelos.Response;
-using System.Net.Http.Json;
+﻿using System.Net.Http.Json;
+using ScreenSound.Shared.Modelos.Response;
 
 namespace ScreenSound.WebAssembly.Services
 {
@@ -19,11 +19,13 @@ namespace ScreenSound.WebAssembly.Services
             try
             {
                 _logger.LogInformation("Tentando buscar música no endpoint de músicas.");
-                var result = await _httpClient.GetFromJsonAsync<ICollection<MusicaResponse>>("musicas");
+                var result = await _httpClient.GetFromJsonAsync<ICollection<MusicaResponse>>(
+                    "musicas"
+                );
                 _logger.LogInformation("Busca de músicas concluída.");
                 return result;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 string mensagem = "Erro ao buscar músicas da API.";
                 _logger.LogError(e, mensagem);

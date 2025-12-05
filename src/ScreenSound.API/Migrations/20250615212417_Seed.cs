@@ -15,10 +15,20 @@ namespace ScreenSound.API.Migrations
                 columns: ["Nome", "Descricao"],
                 values: new object[,]
                 {
-                    { "Rock", "Gênero musical que se desenvolveu a partir do rock and roll nas décadas de 1950 e 1960." },
-                    { "Pop", "Gênero de música popular que se originou em sua forma moderna em meados da década de 1950 nos Estados Unidos e Reino Unido." },
-                    { "MPB", "A Música Popular Brasileira é um gênero musical que surgiu no Brasil em meados dos anos 1960." }
-                });
+                    {
+                        "Rock",
+                        "Gênero musical que se desenvolveu a partir do rock and roll nas décadas de 1950 e 1960.",
+                    },
+                    {
+                        "Pop",
+                        "Gênero de música popular que se originou em sua forma moderna em meados da década de 1950 nos Estados Unidos e Reino Unido.",
+                    },
+                    {
+                        "MPB",
+                        "A Música Popular Brasileira é um gênero musical que surgiu no Brasil em meados dos anos 1960.",
+                    },
+                }
+            );
 
             // Seed de Artistas
             migrationBuilder.InsertData(
@@ -26,16 +36,53 @@ namespace ScreenSound.API.Migrations
                 columns: ["Nome", "Bio", "FotoPerfil"],
                 values: new object[,]
                 {
-                    { "Foo Fighters", "Foo Fighters é uma banda de rock alternativo americana formada por Dave Grohl em 1995.", "Foto_001.png" },
-                    { "Queen", "Queen foi uma banda de rock britânica formada em Londres em 1970.", "Foto_002.png" },
-                    { "Led Zeppelin", "Led Zeppelin foi uma banda de rock britânica formada em Londres em 1968.", "Foto_003.png" },
-                    { "Taylor Swift", "Taylor Alison Swift é uma cantora e compositora americana.", "Foto_004.png" },
-                    { "Michael Jackson", "Michael Joseph Jackson foi um cantor, compositor e dançarino americano.", "Foto_005.png" },
-                    { "Madonna", "Madonna Louise Ciccone é uma cantora, compositora, atriz e empresária americana.", "Foto_006.png" },
-                    { "Djavan", "Djavan Caetano Viana é um cantor, compositor, arranjador, produtor musical, empresário, violonista e ex-futebolista brasileiro.", "Foto_007.png" },
-                    { "Gilberto Gil", "Gilberto Passos Gil Moreira é um cantor, compositor, multi-instrumentista, produtor musical, político e escritor brasileiro.", "Foto_008.png" },
-                    { "Caetano Veloso", "Caetano Emanuel Viana Telles Veloso é um cantor, compositor, violonista, escritor e produtor musical brasileiro.", "Foto_009.png" }
-                });
+                    {
+                        "Foo Fighters",
+                        "Foo Fighters é uma banda de rock alternativo americana formada por Dave Grohl em 1995.",
+                        "Foto_001.png",
+                    },
+                    {
+                        "Queen",
+                        "Queen foi uma banda de rock britânica formada em Londres em 1970.",
+                        "Foto_002.png",
+                    },
+                    {
+                        "Led Zeppelin",
+                        "Led Zeppelin foi uma banda de rock britânica formada em Londres em 1968.",
+                        "Foto_003.png",
+                    },
+                    {
+                        "Taylor Swift",
+                        "Taylor Alison Swift é uma cantora e compositora americana.",
+                        "Foto_004.png",
+                    },
+                    {
+                        "Michael Jackson",
+                        "Michael Joseph Jackson foi um cantor, compositor e dançarino americano.",
+                        "Foto_005.png",
+                    },
+                    {
+                        "Madonna",
+                        "Madonna Louise Ciccone é uma cantora, compositora, atriz e empresária americana.",
+                        "Foto_006.png",
+                    },
+                    {
+                        "Djavan",
+                        "Djavan Caetano Viana é um cantor, compositor, arranjador, produtor musical, empresário, violonista e ex-futebolista brasileiro.",
+                        "Foto_007.png",
+                    },
+                    {
+                        "Gilberto Gil",
+                        "Gilberto Passos Gil Moreira é um cantor, compositor, multi-instrumentista, produtor musical, político e escritor brasileiro.",
+                        "Foto_008.png",
+                    },
+                    {
+                        "Caetano Veloso",
+                        "Caetano Emanuel Viana Telles Veloso é um cantor, compositor, violonista, escritor e produtor musical brasileiro.",
+                        "Foto_009.png",
+                    },
+                }
+            );
 
             // Insere todas as músicas com ArtistaId e GeneroId via UPDATE
             migrationBuilder.InsertData(
@@ -69,11 +116,13 @@ namespace ScreenSound.API.Migrations
                     { "Expresso 2222", 1972 },
                     { "O Leãozinho", 1977 },
                     { "Sampa", 1978 },
-                    { "Cajuína", 1979 }
-                });
+                    { "Cajuína", 1979 },
+                }
+            );
 
             // Atualiza ArtistaId e GeneroId das músicas (Rock)
-            migrationBuilder.Sql(@"
+            migrationBuilder.Sql(
+                @"
                 UPDATE Musicas
                 SET ArtistaId = A.Id, GeneroId = G.Id
                 FROM Musicas M
@@ -94,10 +143,12 @@ namespace ScreenSound.API.Migrations
                 INNER JOIN Artistas A ON A.Nome = 'Led Zeppelin'
                 CROSS JOIN Generos G
                 WHERE G.Nome = 'Rock' AND M.Nome IN ('Stairway to Heaven', 'Whole Lotta Love', 'Black Dog');
-            ");
+            "
+            );
 
             // Pop
-            migrationBuilder.Sql(@"
+            migrationBuilder.Sql(
+                @"
                 UPDATE Musicas
                 SET ArtistaId = A.Id, GeneroId = G.Id
                 FROM Musicas M
@@ -118,10 +169,12 @@ namespace ScreenSound.API.Migrations
                 INNER JOIN Artistas A ON A.Nome = 'Madonna'
                 CROSS JOIN Generos G
                 WHERE G.Nome = 'Pop' AND M.Nome IN ('Like a Virgin', 'Material Girl', 'Vogue');
-            ");
+            "
+            );
 
             // MPB
-            migrationBuilder.Sql(@"
+            migrationBuilder.Sql(
+                @"
                 UPDATE Musicas
                 SET ArtistaId = A.Id, GeneroId = G.Id
                 FROM Musicas M
@@ -142,7 +195,8 @@ namespace ScreenSound.API.Migrations
                 INNER JOIN Artistas A ON A.Nome = 'Caetano Veloso'
                 CROSS JOIN Generos G
                 WHERE G.Nome = 'MPB' AND M.Nome IN ('O Leãozinho', 'Sampa', 'Cajuína');
-            ");
+            "
+            );
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

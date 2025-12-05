@@ -4,10 +4,8 @@ namespace ScreenSound.Modelos;
 
 public class Musica
 {
-    public Musica()
-    {
-        
-    }
+    public Musica() { }
+
     public Musica(string nome)
     {
         Nome = nome;
@@ -20,6 +18,7 @@ public class Musica
     public int? GeneroId { get; set; }
     public virtual Artista? Artista { get; set; }
     public virtual Genero? Genero { get; set; }
+
     public void ExibirFichaTecnica()
     {
         Console.WriteLine($"Nome: {Nome}");
@@ -29,6 +28,5 @@ public class Musica
     {
         return @$"Id: {Id}
         Nome: {Nome}";
-
     }
 }
