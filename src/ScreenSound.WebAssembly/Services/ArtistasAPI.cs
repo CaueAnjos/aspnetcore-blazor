@@ -13,7 +13,7 @@ namespace ScreenSound.WebAssembly.Services
             _httpClient = factory.CreateClient("API");
         }
 
-        public async Task<ICollection<ArtistaResponse>> GetArtistasAsync()
+        public async Task<ICollection<ArtistaResponse>?> GetArtistasAsync()
         {
             return await _httpClient.GetFromJsonAsync<ICollection<ArtistaResponse>>("artistas");
         }
