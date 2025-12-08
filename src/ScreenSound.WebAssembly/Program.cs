@@ -12,7 +12,13 @@ builder.Services.AddHttpClient(
     "API",
     client =>
     {
-        client.BaseAddress = new Uri(builder.Configuration["APIServer"]);
+        string? apiUrl = builder.Configuration["APIServer"];
+        if (string.IsNullOrEmpty(apiUrl))
+        {
+            throw new NullReferenceException("Uri on Appsettings.json (APIServer) is enpity!");
+        }
+
+        client.BaseAddress = new Uri(apiUrl);
         client.DefaultRequestHeaders.Add("Accept", "application/json");
     }
 );
