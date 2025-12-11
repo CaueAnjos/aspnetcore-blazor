@@ -9,7 +9,11 @@
   }:
     flake-utils.lib.eachDefaultSystem (system: let
       pkgs = nixpkgs.legacyPackages.${system};
-      dotnet-sdk = pkgs.dotnetCorePackages.sdk_9_0;
+      dotnet-sdk = with pkgs.dotnetCorePackages;
+        combinePackages [
+          sdk_10_0
+          sdk_9_0
+        ];
     in {
       devShells.default = pkgs.mkShellNoCC {
         packages = with pkgs; [
