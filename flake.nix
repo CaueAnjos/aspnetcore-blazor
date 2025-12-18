@@ -23,6 +23,33 @@
           podman
           podman-compose
         ];
+
+        shellHook = let
+          podmanSetupScript = let
+            registriesConf = pkgs.writeText "registries.conf" ''
+              [registries.search]
+              registries = ['docker.io']
+
+              [registries.block]
+              registries = []
+            '';
+          in
+            pkgs.writeScript "podman-setup" ''
+              #!${pkgs.runtimeShell}
+
+              # Dont overwrite customised configuration
+              if ! test -f ~/.config/containers/policy.json; then
+                install -Dm555 ${pkgs.skopeo.src}/default-policy.json ~/.config/containers/policy.json
+              fi
+
+              if ! test -f ~/.config/containers/registries.conf; then
+                install -Dm555 ${registriesConf} ~/.config/containers/registries.conf
+              fi
+            '';
+        in ''
+          Installing required configurations for podman
+          ${podmanSetupScript}
+        '';
       };
     });
 }
